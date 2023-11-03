@@ -2,6 +2,7 @@ import heapq
 import os
 import random
 import unittest
+from faker import Faker
 
 class Paciente:
     def __init__(self, nome, idade, prioridade):
@@ -34,21 +35,22 @@ class ProntoSocorro:
     def mostrar_proximo_paciente(self):
         if self.fila_prioridades:
             paciente = self.fila_prioridades[0]
-            return paciente.nome, paciente.idade, paciente.prioridade
+            return print(paciente.nome, paciente.idade, paciente.prioridade)
         else:
-            return "Não há pacientes na fila"
+            return print("Não há pacientes na fila")
 
     def listar_ultimos_pacientes_chamados(self):
         if not self.ultimos_pacientes_chamados:
-            return "Não há pacientes chamados"
+            return print("Não há pacientes chamados")
         else:
-            return [(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]]
+            return print([(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]])
         
 
 # Gerar uma simulação com pacientes aleatórios
 def gerar_simulacao(pronto_socorro, num_pacientes):
+    fake = Faker('en_US')
     for _ in range(num_pacientes):
-        nome = f'Paciente {random.randint(1, 100)}'
+        nome = f'Paciente {fake.name()}'
         idade = random.randint(1, 100)
         prioridade = random.randint(1, 10)
         paciente = Paciente(nome, idade, prioridade)
