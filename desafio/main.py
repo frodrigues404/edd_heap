@@ -1,6 +1,5 @@
 import os
 import random
-import unittest
 from faker import Faker
 import Paciente
 import ProntoSocorro
