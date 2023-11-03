@@ -21,12 +21,12 @@ class ProntoSocorro:
     def mostrar_proximo_paciente(self):
         if self.fila_prioridades:
             paciente = self.fila_prioridades[0]
-            return print(paciente.nome, paciente.idade, paciente.prioridade)
+            return paciente.nome, paciente.idade, paciente.prioridade
         else:
-            return print("Não há pacientes na fila")
+            return None
 
     def listar_ultimos_pacientes_chamados(self):
         if not self.ultimos_pacientes_chamados:
-            return print("Não há pacientes chamados")
+            return None
         else:
-            return print([(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]])
+            return [(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]]

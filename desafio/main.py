@@ -58,11 +58,17 @@ while True:
 
     elif opcao == 4:
         os.system("cls")
-        pronto_socorro.mostrar_proximo_paciente()
+        if not pronto_socorro.mostrar_proximo_paciente():
+            print("Não há pacientes na fila")
+        else:
+            print(pronto_socorro.mostrar_proximo_paciente())
 
     elif opcao == 5:
         os.system("cls")
-        pronto_socorro.listar_ultimos_pacientes_chamados()
+        if not pronto_socorro.listar_ultimos_pacientes_chamados():
+            print("Não há pacientes na fila")
+        else:
+            print(pronto_socorro.listar_ultimos_pacientes_chamados())
 
     elif opcao == 6:
         os.system("cls")
