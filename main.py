@@ -1,5 +1,7 @@
 import heapq
+import os
 import random
+import unittest
 
 class Paciente:
     def __init__(self, nome, idade, prioridade):
@@ -34,10 +36,14 @@ class ProntoSocorro:
             paciente = self.fila_prioridades[0]
             return paciente.nome, paciente.idade, paciente.prioridade
         else:
-            return None
+            return "Não há pacientes na fila"
 
     def listar_ultimos_pacientes_chamados(self):
-        return [(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]]
+        if not self.ultimos_pacientes_chamados:
+            return "Não há pacientes chamados"
+        else:
+            return [(paciente.nome, paciente.idade, paciente.prioridade) for paciente in self.ultimos_pacientes_chamados[-5:]]
+        
 
 # Gerar uma simulação com pacientes aleatórios
 def gerar_simulacao(pronto_socorro, num_pacientes):
@@ -48,59 +54,63 @@ def gerar_simulacao(pronto_socorro, num_pacientes):
         paciente = Paciente(nome, idade, prioridade)
         pronto_socorro.adicionar_paciente(paciente)
 
-
 pronto_socorro = ProntoSocorro()
 
-print('''Selecione a opção:
-      [1] Cadastrar paciente
-      [2] Atender paciente de maior prioridade
-      [3] Visualizar a fila
-      [4] Visualizar do próximo paciente
-      [5] Listar os cinco últimos pacientes chamados
-      [0] Sair''')
+while True:
 
-opcao = int(input("Digite a opção: "))
+    print('''Selecione a opção:
+[1] Cadastrar paciente
+[2] Atender paciente de maior prioridade
+[3] Visualizar a fila
+[4] Visualizar do próximo paciente
+[5] Listar os cinco últimos pacientes chamados
+[6] Gerar pacientes aleatórios
+[0] Sair''')
 
-while opcao != 0:
+    opcao = int(input("Digite a opção: "))
+
     if opcao == 1:
-        pass
+        # os.system("cls")
+        nome = input("Digite o nome do paciente: ")
+        idade = int(input("Digite a idade do paciente: "))
+        prioridade = int(input("Digite a prioridade do paciente: "))
+        paciente = Paciente(nome, idade, prioridade)
+        pronto_socorro.adicionar_paciente(paciente)
+        # os.system("cls")
+
     elif opcao == 2:
-        for _ in range(5):
-            paciente_atendido = pronto_socorro.atender_proximo_paciente()
-            if paciente_atendido:
-                print(f"Atendendo {paciente_atendido.nome}, Idade: {paciente_atendido.idade}, Prioridade: {paciente_atendido.prioridade}")
-            else:
-                print("Não há mais pacientes na fila.")
+        # os.system("cls")
+        paciente_atendido = pronto_socorro.atender_proximo_paciente()
+        if paciente_atendido:
+            print(f"Atendendo {paciente_atendido.nome}, Idade: {paciente_atendido.idade}, Prioridade: {paciente_atendido.prioridade}")
+        else:
+            print("Não há mais pacientes na fila.")  
+                              
     elif opcao == 3:
+        # os.system("cls")
         if not pronto_socorro.visualizar_fila():
             print("Não há pacientes na fila")
         else:
             print(f'Fila: {pronto_socorro.visualizar_fila()}')
-        break
+
     elif opcao == 4:
+        # os.system("cls")
         pronto_socorro.mostrar_proximo_paciente()
+
     elif opcao == 5:
+        # os.system("cls")
         pronto_socorro.listar_ultimos_pacientes_chamados()
+
+    elif opcao == 6:
+        # os.system("cls")
+        num_pacientes = int(input("Digite o número de pacientes: "))
+        gerar_simulacao(pronto_socorro, num_pacientes)
+        # os.system("cls")
+
+    elif opcao == 0:
+        # os.system("cls")
+        print("Saindo...")
+        break
+
     else:
         print("Opção inválida")
-
-# Testes da implementação
-
-# gerar_simulacao(pronto_socorro, 20)
-
-# print("Fila de Pacientes:")
-# print(pronto_socorro.visualizar_fila())
-
-# print("\nPróximo Paciente:")
-# print(pronto_socorro.mostrar_proximo_paciente())
-
-# print("\nAtendendo Pacientes:")
-# for _ in range(5):
-#     paciente_atendido = pronto_socorro.atender_proximo_paciente()
-#     if paciente_atendido:
-#         print(f"Atendendo {paciente_atendido.nome}, Idade: {paciente_atendido.idade}, Prioridade: {paciente_atendido.prioridade}")
-#     else:
-#         print("Não há mais pacientes na fila.")
-
-# print("\nÚltimos Pacientes Atendidos:")
-# print(pronto_socorro.listar_ultimos_pacientes_chamados())
